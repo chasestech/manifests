@@ -86,6 +86,21 @@ serviceAccount:
   name:
   annotations: {}
 
+# Enable serving of metrics
+metrics:
+  enabled: false
+  # The pod and service port from which metrics are served
+  port: 9102
+  # Creates a ServiceMonitor resource for use with the Prometheus operator
+  serviceMonitor:
+    enabled: false
+    # Override name of the ServiceMonitor resource
+    # If left empty, it will default to the release name
+    name:
+    annotations: {}
+    # The interval at which Prometheus should scrape metrics
+    interval: 30s
+
 ingress:
   enabled: false
   path: /

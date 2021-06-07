@@ -1,0 +1,30 @@
+{{- if .Values.metrics.serviceMonitor.enabled -}}
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  {{- with .Values.metrics.serviceMonitor.annotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+  labels:
+    app: {{ template "oauth2-proxy.name" . }}
+    chart: {{ template "oauth2-proxy.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+  {{- if .Values.metrics.serviceMonitor.name }}
+  name: {{ .Values.metrics.serviceMonitor.name }}
+  {{- else }}
+  name: {{ template "oauth2-proxy.fullname" . }}
+  {{- end }}
+spec:
+  endpoints:
+  - interval: {{ .Values.metrics.serviceMonitor.interval }}
+    path: /metrics
+    port: metrics
+  selector:
+    matchLabels:
+      app: {{ template "oauth2-proxy.name" . }}
+      chart: {{ template "oauth2-proxy.chart" . }}
+      release: {{ .Release.Name }}
+      heritage: {{ .Release.Service }}
+{{- end -}}

@@ -117,6 +117,12 @@ Parameter | Description | Default
 `serviceAccount.enabled` | create a service account | `true`
 `serviceAccount.name` | the service account name | ``
 `serviceAccount.annotations` | (optional) annotations for the service account | `{}`
+`metrics.enabled` | enable serving of metrics | `false`
+`metrics.port` | the port to serve metrics on | `9102`
+`metrics.serviceMonitor` | creates a ServiceMonitor resource | `false`
+`metrics.serviceMonitor.name` | overrides the name of the ServiceMonitor resource | `nil`
+`metrics.serviceMonitor.annotations` | annotations to add to the ServiceMonitor | `{}`
+`metrics.serviceMonitor.interval` | the interval to scrape metrics | `30s`
 `tolerations` | list of node taints to tolerate | `[]`
 `securityContext.enabled` | enable Kubernetes security context on container | `false`
 `securityContext.runAsNonRoot` | make sure that the container runs as a non-root user | `true`
